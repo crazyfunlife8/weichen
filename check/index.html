@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>你家冷氣還好嗎｜小林師傅</title>
+<meta name="description" content="小林師傅出的 7 題，兩分鐘看你家冷氣的狀況。不用留電話。">
+<meta property="og:title" content="你家冷氣還好嗎｜小林師傅">
+<meta property="og:description" content="7 題、兩分鐘，看你家冷氣該不該洗、要不要請師傅來看">
+<meta property="og:image" content="img/p1-濾網對燈.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ===== 設定：問到再填 ===== */
+</style>
+<script>
+const CONFIG = {
+  LINE_OA: '@224omiqy',     // 官方帳號 ID。有填就用預填訊息，沒填就用個人 LINE 加好友＋複製整理單
+  LINE_PERSONAL: 'lcc.125788',
+  GA_ID: '',                // GA4 評估 ID（G-XXXX），用創巢帳號開
+  AREA: '桃園',             // 服務範圍，問到再改
+};
+</script>
+<style>
+:root{--navy:#1E1C55;--orange:#F58220;--sky:#29A9E0;--bg:#EEF4FA;--card:#fff;--ink:#1E1C55;--sub:#4A5480;--line:#D3DDEC}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',system-ui,sans-serif;font-weight:500;line-height:1.6;min-height:100vh}
+.wrap{max-width:540px;margin:0 auto;padding:16px 16px calc(32px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--sub);min-height:32px}
+.top b{color:var(--navy);font-weight:900}
+.urgent{display:block;margin:10px 0 0;padding:10px 14px;border-radius:12px;background:#FFF1E4;color:#A34A00;font-size:15px;text-decoration:none;font-weight:700}
+.urgent span{color:var(--orange)}
+h1{font-size:34px;line-height:1.25;font-weight:900;margin:22px 0 10px}
+h1 em{font-style:normal;color:var(--orange)}
+.lead{color:var(--sub);font-size:17px}
+.hero{display:block;width:62%;max-width:280px;margin:18px auto 6px}
+.btn{display:block;width:100%;padding:16px;border-radius:14px;background:var(--orange);color:#fff;font-weight:900;font-size:18px;text-align:center;text-decoration:none;box-shadow:0 4px 0 #B85A0C}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #B85A0C}
+.btn.navy{background:var(--navy);box-shadow:0 4px 0 #0E0D30}
+.btn.ghost{background:#fff;color:var(--navy);box-shadow:0 0 0 2px var(--navy) inset}
+.note{font-size:13px;color:var(--sub);text-align:center;margin-top:10px}
+.bar{height:8px;background:#D9E3F1;border-radius:8px;overflow:hidden;margin:6px 0 18px}
+.bar i{display:block;height:100%;background:var(--sky);border-radius:8px;transition:width .3s}
+.q{font-size:24px;font-weight:900;line-height:1.35;margin-bottom:6px}
+.qh{color:var(--sub);font-size:15px;margin-bottom:14px}
+.opts{display:grid;gap:10px}
+.opt{display:block;width:100%;text-align:left;padding:14px 16px;border-radius:14px;background:var(--card);box-shadow:0 0 0 2px var(--line) inset;font-size:17px;font-weight:700}
+.opt small{display:block;font-weight:500;font-size:14px;color:var(--sub)}
+.opt.on{box-shadow:0 0 0 3px var(--orange) inset;background:#FFF6EE}
+.say{display:flex;gap:10px;align-items:flex-end;margin:18px 0 6px;min-height:76px}
+.say img{width:64px;flex:none}
+.say p{background:#fff;border-radius:16px 16px 16px 4px;padding:10px 14px;font-weight:700;box-shadow:0 0 0 2px var(--navy) inset;font-size:16px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px}
+.back{color:var(--sub);font-size:15px;padding:8px 4px}
+.next{flex:1;max-width:200px}
+.hide{display:none!important}
+/* 結果 */
+.verdict{background:var(--navy);color:#fff;border-radius:20px;padding:20px 18px 0;margin-top:16px;overflow:hidden;position:relative}
+.verdict .lv{display:inline-block;background:var(--orange);color:#fff;font-weight:900;font-size:14px;padding:4px 12px;border-radius:20px}
+.verdict h2{font-size:28px;font-weight:900;line-height:1.3;margin:10px 0 6px}
+.verdict p{color:#CFE2F5;font-size:16px;padding-right:110px;padding-bottom:20px}
+.verdict img{position:absolute;right:-6px;bottom:-4px;width:130px}
+.sec{margin-top:26px}
+.sec h3{font-size:20px;font-weight:900;margin-bottom:10px}
+.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 0 0 2px var(--line) inset}
+.card h4{font-size:18px;font-weight:900;margin-bottom:8px}
+.card h4 .you{font-size:12px;font-weight:700;color:var(--orange);background:#FFF1E4;border-radius:10px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.card dl{display:grid;gap:8px;font-size:15px}
+.card dt{font-weight:900;color:var(--sky);font-size:13px}
+.card dd{color:var(--ink)}
+.card .pro{color:#A34A00;font-weight:700}
+.tip{font-size:15px;padding:10px 0;border-bottom:2px dashed var(--line)}
+.tip:last-child{border:0}
+.tip b{color:var(--orange)}
+.src{font-size:12px;color:var(--sub);margin-top:6px}
+.src a{color:var(--sub)}
+.case img{width:100%;border-radius:14px;display:block}
+.case p{font-size:14px;color:var(--sub);margin-top:6px}
+.cta{background:#fff;border-radius:20px;padding:18px;margin-top:26px;box-shadow:0 0 0 3px var(--orange) inset}
+.cta h3{font-size:20px;font-weight:900}
+.cta p{font-size:15px;color:var(--sub);margin:6px 0 14px}
+.code{font-size:13px;color:var(--sub);text-align:center;margin-top:10px}
+.sheet{white-space:pre-wrap;background:var(--bg);border-radius:12px;padding:12px;font-size:14px;margin:12px 0}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+.foot{margin-top:28px;text-align:center;font-size:13px;color:var(--sub)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 首頁 -->
+  <section id="home">
+    <div class="top"><b>小林師傅｜<span class="area"></span>冷氣</b><span>@xiaolin.aircon</span></div>
+    <a class="urgent lineLink" href="#">冷氣現在就壞了？<span>直接 LINE 小林 →</span></a>
+    <h1>你家冷氣<br><em>還好嗎</em></h1>
+    <p class="lead">小林出的 7 題，大概兩分鐘<br>不用留電話，填完就看到結果</p>
+    <img class="hero" src="img/p1-濾網對燈.png" alt="北極熊小林拿著濾網對著燈看">
+    <button class="btn" id="start">開始檢查</button>
+    <p class="note">結果只會出現在你的手機上，不會傳給任何人</p>
+  </section>
+
+  <!-- 題目 -->
+  <section id="quiz" class="hide">
+    <div class="top"><button class="back" id="back">← 上一題</button><span id="count"></span></div>
+    <div class="bar"><i id="prog"></i></div>
+    <div class="q" id="qt"></div>
+    <div class="qh" id="qh"></div>
+    <div class="opts" id="opts"></div>
+    <div class="say hide" id="say"><img src="img/A-北極熊.png" alt=""><p id="sayt"></p></div>
+    <div class="nav"><span></span><button class="btn next hide" id="next">下一題</button></div>
+  </section>
+
+  <!-- 結果 -->
+  <section id="result" class="hide"></section>
+
+  <p class="foot">小林師傅｜帷宸冷氣空調</p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const Q = [
+  {k:'type', t:'你家冷氣是哪一種', h:'有好幾台就選最常用的那台', o:[
+    ['wall','壁掛式','掛在牆上的長條形','最常見的 我閉著眼都會拆'],
+    ['window','窗型','嵌在窗戶上的一整台','老派 但很耐用'],
+    ['duct','吊隱式','藏在天花板裡，只看到出風口','藏起來的最容易被忘記洗'],
+    ['unknown','不知道','','沒關係 掛在牆上那台八成是壁掛']]},
+  {k:'age', t:'用幾年了', h:'不確定的話，室外機貼紙上有出廠年份', o:[
+    ['a5','5 年內','','還年輕 好好對它'],
+    ['a10','6 到 10 年','','中年了 開始要顧'],
+    ['a10p','10 年以上','','老將了 辛苦它了'],
+    ['unknown','不知道','','下次去陽台看一下貼紙']]},
+  {k:'filter', t:'濾網多久洗一次', h:'打開前面板，裡面那片網子', o:[
+    ['w2','兩週內','','你是模範生'],
+    ['m1','一個月左右','','還可以 再勤一點'],
+    ['long','很久沒洗了','','你在堅持什麼'],
+    ['where','不知道濾網在哪','','結果頁教你拆 手就可以']]},
+  {k:'pro', t:'上次請師傅拆洗是什麼時候', h:'不是自己洗濾網，是整台拆開洗', o:[
+    ['y1','一年內','','很好 它有被愛'],
+    ['y2','一到兩年','','差不多該約了'],
+    ['never','從來沒有','','你確定不洗嗎？']]},
+  {k:'sym', t:'最近有沒有這些狀況', h:'可以複選', multi:true, o:[
+    ['drip','室內機在滴水',''],
+    ['smell','吹出來有霉味、酸味',''],
+    ['weak','不冷，或冷很慢',''],
+    ['noise','有怪聲',''],
+    ['frost','管子或出風口結霜',''],
+    ['bill','電費變高',''],
+    ['none','都沒有','']]},
+  {k:'out', t:'室外機放在哪', h:'就是陽台或外牆上那台會轉的', o:[
+    ['open','通風的陽台或外牆','前面沒堆東西','室外機謝謝你'],
+    ['tight','角落，或被東西圍住','','它也想喘口氣'],
+    ['unknown','不知道','','下次去陽台看一眼']]},
+  {k:'temp', t:'平常開幾度', h:'選最常開的溫度', o:[
+    ['t26','26 到 28 度','','跟能源署建議的一樣 乖'],
+    ['t24','24 到 25 度','','差一兩度 電費差不少'],
+    ['t23','23 度以下','','你家是冰箱嗎']]},
+];
+const A = {}; let i = 0;
+const label = (k, v) => (Q.find(q => q.k === k).o.find(o => o[0] === v) || [, ''])[1];
+
+// ===== 題目 =====
+function show() {
+  const q = Q[i];
+  $('#count').textContent = `${i + 1} / ${Q.length}`;
+  $('#prog').style.width = `${(i + 1) / Q.length * 100}%`;
+  $('#qt').textContent = q.t; $('#qh').textContent = q.h;
+  $('#back').style.visibility = i ? 'visible' : 'hidden';
+  $('#say').classList.add('hide');
+  const cur = A[q.k];
+  $('#opts').innerHTML = q.o.map(o => {
+    const on = q.multi ? (cur || []).includes(o[0]) : cur === o[0];
+    return `<button class="opt${on ? ' on' : ''}" data-v="${o[0]}">${o[1]}${o[2] ? `<small>${o[2]}</small>` : ''}</button>`;
+  }).join('');
+  $('#next').classList.toggle('hide', !(q.multi || cur));
+  $('#next').textContent = i === Q.length - 1 ? '看結果' : '下一題';
+  if (q.multi) $('#next').disabled = !(cur && cur.length);
+  window.scrollTo(0, 0);
+}
+$('#opts').addEventListener('click', e => {
+  const b = e.target.closest('.opt'); if (!b) return;
+  const q = Q[i], v = b.dataset.v;
+  if (q.multi) {
+    let s = A[q.k] || [];
+    if (v === 'none') s = s.includes('none') ? [] : ['none'];
+    else { s = s.filter(x => x !== 'none'); s = s.includes(v) ? s.filter(x => x !== v) : [...s, v]; }
+    A[q.k] = s;
+    const n = s.filter(x => x !== 'none').length;
+    say(!s.length ? '' : s.includes('none') ? '沒症狀 很好' : n === 1 ? '記下來了 等等跟你講' : `${n} 個 記下來了 等等一個一個講`);
+  } else {
+    A[q.k] = v;
+    say(q.o.find(o => o[0] === v)[3]);
+  }
+  show(); if (A[q.k]) sayKeep();
+});
+let lastSay = '';
+function say(t) { lastSay = t; }
+function sayKeep() { if (!lastSay) return; $('#sayt').textContent = lastSay; $('#say').classList.remove('hide'); }
+$('#next').onclick = () => { lastSay = ''; if (i < Q.length - 1) { i++; show(); } else result(); };
+$('#back').onclick = () => { lastSay = ''; if (i) { i--; show(); } };
+$('#start').onclick = () => { $('#home').classList.add('hide'); $('#quiz').classList.remove('hide'); show(); track('start'); };
+
+// ===== 判斷 =====
+const SYM = {
+  drip:{t:'室內機在滴水', why:'排水管堵住、接水盤太髒，或濾網太髒讓裡面結冰，退冰時滴下來', self:'冷氣開著時去看室外的排水管，有在滴水是正常的，一滴都沒有多半是裡面堵住了。濾網先洗一次', pro:'接水盤跟排水管要拆機才通得到。ㄟ 這個不要自己拆，讓專業的來'},
+  smell:{t:'有霉味、酸味', why:'裡面的鰭片、風扇（風鼓）、接水盤長黴了', self:'先洗濾網，會好一點點，但味道多半是從更裡面來的', pro:'要整台拆開洗，洗濾網洗不到那裡'},
+  weak:{t:'不冷，或冷很慢', why:'濾網或鰭片太髒、室外機散熱不好，或冷媒不夠', self:'洗濾網，看室外機前面有沒有堆東西', pro:'冷媒夠不夠要師傅接錶量，不要自己補冷媒'},
+  noise:{t:'有怪聲', why:'零件積灰、風扇或馬達磨損，舊機也可能是壓縮機老了', self:'記下是室內機還是室外機在響、什麼時候響，師傅來的時候講得出來就快很多', pro:'不要自己拆開找聲音'},
+  frost:{t:'結霜', why:'濾網太髒，或冷媒不夠', self:'先關機讓它退冰，濾網洗乾淨再開', pro:'洗了還是結霜，就要請師傅檢查冷媒'},
+  bill:{t:'電費變高', why:'濾網堵住、室外機散熱差，或機器老了效率變低', self:'濾網兩到三週洗一次、溫度開 26 到 28 度', pro:'都做了還是很高，可以請師傅看是不是機器本身的問題'},
+};
+function level() {
+  const s = (A.sym || []).filter(x => x !== 'none');
+  if (s.some(x => ['drip','weak','noise','frost'].includes(x))) return 3;
+  let p = 0;
+  p += {a5:0,a10:1,a10p:2,unknown:1}[A.age];
+  p += {w2:0,m1:1,long:2,where:2}[A.filter];
+  p += {y1:0,y2:1,never:2}[A.pro];
+  if (s.includes('smell')) p += 3;
+  if (s.includes('bill')) p += 1;
+  if (A.out === 'tight') p += 1;
+  if (A.temp === 't23') p += 1;
+  return p >= 3 ? 2 : 1;
+}
+const LV = {
+  1:{tag:'還很健康', h:'你家冷氣<br>還有活著的機會', p:'沒什麼大問題，照下面的小地方顧好就好', img:'p3-比讚'},
+  2:{tag:'該保養了', h:'不是壞了<br>是太久沒照顧了', p:'現在還能吹，但髒的地方已經在偷你的電費', img:'p5-手電筒'},
+  3:{tag:'建議請師傅來看', h:'這個狀況<br>讓專業的來', p:'你勾的症狀，光洗濾網多半解決不了', img:'p6-扛室外機'},
+};
+
+// ===== 結果 =====
+let CODE = '';
+function result() {
+  const lv = level(), L = LV[lv], s = (A.sym || []).filter(x => x !== 'none');
+  const d = new Date();
+  CODE = `XL${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}-${Math.floor(100 + Math.random() * 900)}`;
+  let h = `<div class="top"><b>小林的檢查結果</b><button class="back" id="redo">重新填</button></div>
+  <div class="verdict"><span class="lv">${L.tag}</span><h2>${L.h}</h2><p>${L.p}</p><img src="img/${L.img}.png" alt=""></div>`;
+
+  if (s.length) {
+    h += `<div class="sec"><h3>你勾的狀況</h3>` + s.map(k => { const x = SYM[k]; return `<div class="card"><h4>${x.t}<span class="you">你選了</span></h4><dl>
+      <dt>常見原因</dt><dd>${x.why}</dd><dt>你可以先做</dt><dd>${x.self}</dd><dt>要找師傅的</dt><dd class="pro">${x.pro}</dd></dl></div>`; }).join('') + `</div>`;
+  }
+
+  const tips = [];
+  if (A.filter !== 'w2') tips.push(`<div class="tip"><b>濾網</b>　能源署建議兩週洗一次。打開前面板，濾網往上推再往下拉就出來了，從背面用水沖，陰乾再裝回去。台電說濾網兩到三週洗一次，可以省約一成的冷氣用電<div class="src">出處：<a href="https://www.moeaea.gov.tw/ECW/populace/content/Content.aspx?menu_id=86" target="_blank" rel="noopener">經濟部能源署 省電36計</a></div></div>`);
+  if (A.pro !== 'y1') tips.push(`<div class="tip"><b>拆洗</b>　濾網只是最外面那層，裡面的鰭片、風扇、接水盤要整台拆開才洗得到。${A.pro === 'never' ? '從來沒拆洗過的，建議排在最前面' : '一到兩年沒洗，差不多該約了'}</div>`);
+  if (A.temp !== 't26') tips.push(`<div class="tip"><b>溫度</b>　能源署建議開 26 到 28 度，搭配電扇。台電說溫度每調高 1 度，大約省 6% 的冷氣用電</div>`);
+  if (A.out !== 'open') tips.push(`<div class="tip"><b>室外機</b>　室外機是把家裡的熱吹出去的，被東西圍住熱風吹不走，冷氣就越吹越沒力。前面別堆東西，${A.out === 'unknown' ? '下次去看一眼' : '要搬位置先問師傅，搬室外機要先收冷媒'}</div>`);
+  if (A.age === 'a10p') tips.push(`<div class="tip"><b>10 年以上</b>　舊機效率比較差，用的如果是 R22 冷媒，現在維修跟補冷媒都比較貴。想換新的話，能源署有汰舊換新補助，換一級能效的冷氣每台補助 3,000 元，發票要在 2026/12/31 前，經費用完會提早結束<div class="src">詳情看 <a href="https://save3000.moeaea.gov.tw/subsidy02/index/index.aspx" target="_blank" rel="noopener">能源署節能家電補助網站</a></div></div>`);
+  if (tips.length) h += `<div class="sec"><h3>${lv === 1 ? '小地方顧好' : '小林的建議'}</h3><div class="card">${tips.join('')}</div></div>`;
+
+  h += `<div class="sec"><h3>不要自己來的事</h3><div class="card"><div class="tip">拆機、補冷媒、動電路，交給有證照的冷氣師傅。ㄟ 真的，讓專業的來</div></div></div>`;
+
+  h += `<div class="sec case"><h3>小林最近做的</h3><img src="img/case-1.jpg" alt="員林日照中心天花板嵌入式冷氣"><p>彰化員林日照中心，大教室裝天花板嵌入式，長輩運動時風不會直直對著人吹</p></div>`;
+
+  const sheet = sheetText(lv);
+  h += `<div class="cta"><h3>把結果傳給小林</h3><p>${CONFIG.LINE_OA ? '按下去會打開 LINE，整理單已經幫你填好，直接送出就好' : '先加小林 LINE，再把下面這份整理單貼過去，小林看了就知道你家狀況'}</p>
+    ${CONFIG.LINE_OA ? '' : `<div class="sheet">${sheet}</div>`}
+    <a class="btn" id="toLine" href="#">${CONFIG.LINE_OA ? '用 LINE 傳給小林' : '加小林 LINE'}</a>
+    <div style="height:10px"></div><button class="btn ghost" id="copy">複製整理單</button>
+    <p class="code">你的代碼：${CODE}</p></div>
+    <p class="note" style="margin-top:14px">服務範圍：${CONFIG.AREA}　不比廠牌、不在這裡報價，你家狀況看過再說</p>`;
+
+  $('#quiz').classList.add('hide');
+  const r = $('#result'); r.innerHTML = h; r.classList.remove('hide'); window.scrollTo(0, 0);
+  $('#redo').onclick = () => { for (const k in A) delete A[k]; i = 0; r.classList.add('hide'); $('#quiz').classList.remove('hide'); show(); };
+  $('#toLine').href = lineHref(sheet);
+  $('#toLine').onclick = () => { if (!CONFIG.LINE_OA) copy(sheet, false); track('line', {level: lv}); };
+  $('#copy').onclick = () => copy(sheet, true);
+  track('result', {level: lv});
+}
+function sheetText(lv) {
+  const s = (A.sym || []).filter(x => x !== 'none').map(k => SYM[k].t);
+  const src = new URLSearchParams(location.search).get('utm_source');
+  return [`小林你好 我做了冷氣檢查`, `代碼 ${CODE}`,
+    `冷氣：${label('type', A.type)}，用了${label('age', A.age)}`,
+    `濾網：${label('filter', A.filter)}；拆洗：${label('pro', A.pro)}`,
+    `狀況：${s.length ? s.join('、') : '都沒有'}`,
+    `室外機：${label('out', A.out)}；溫度：${label('temp', A.temp)}`,
+    `結果：${LV[lv].tag}`, src ? `（從 ${src} 來的）` : ''].filter(Boolean).join('\n');
+}
+function lineHref(text) {
+  return CONFIG.LINE_OA ? `https://line.me/R/oaMessage/${encodeURIComponent(CONFIG.LINE_OA)}/?${encodeURIComponent(text)}`
+                        : `https://line.me/ti/p/~${CONFIG.LINE_PERSONAL}`;
+}
+function copy(t, toast) {
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).catch(() => {
+    const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove();
+  }).finally(() => { if (toast) { const el = $('#toast'); el.textContent = '整理單已複製'; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 1600); } });
+}
+
+// ===== 共用 =====
+document.querySelectorAll('.area').forEach(e => e.textContent = CONFIG.AREA);
+document.querySelectorAll('.lineLink').forEach(a => { a.href = lineHref('小林你好 我家冷氣壞了'); a.target = '_blank'; a.onclick = () => track('urgent'); });
+function track(ev, p) { if (window.gtag) gtag('event', 'xl_' + ev, p || {}); }
+if (CONFIG.GA_ID) {
+  const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.GA_ID; document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); }; gtag('js', new Date()); gtag('config', CONFIG.GA_ID);
+}
+</script>
+</body>
+</html>
