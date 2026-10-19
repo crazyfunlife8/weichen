@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>你家冷氣還好嗎｜小林師傅</title>
-<meta name="description" content="小林師傅出的 7 題，兩分鐘看你家冷氣的狀況。不用留電話。">
+<meta name="description" content="點 4 下看洗冷氣參考價、順便約時間；不確定要不要洗，也可以先做 7 題健檢。不用留電話。">
 <meta property="og:title" content="你家冷氣還好嗎｜小林師傅">
-<meta property="og:description" content="7 題、兩分鐘，看你家冷氣該不該洗、要不要請師傅來看">
+<meta property="og:description" content="點 4 下看參考價、約時間，或先做 7 題健檢看要不要洗">
 <meta property="og:image" content="img/p1-濾網對燈.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@ const CONFIG = {
   LINE_OA: '@224omiqy',     // 官方帳號 ID。有填就用預填訊息，沒填就用個人 LINE 加好友＋複製整理單
   LINE_PERSONAL: 'lcc.125788',
   GA_ID: '',                // GA4 評估 ID（G-XXXX），用創巢帳號開
-  AREA: '桃園、新北',        // 服務範圍，問到再改
+  AREA: '桃園各區、新竹、三重',  // 服務範圍（10/11 老闆定案統一）
 };
 </script>
 <style>
@@ -28,7 +28,7 @@ html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',system-ui,sans-serif;font-weight:500;line-height:1.6;min-height:100vh}
 .wrap{max-width:540px;margin:0 auto;padding:16px 16px calc(32px + env(safe-area-inset-bottom))}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
-.top{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--sub);min-height:32px}
+.top{display:flex;flex-wrap:wrap;gap:2px 10px;justify-content:space-between;align-items:center;font-size:14px;color:var(--sub);min-height:32px}
 .top b{color:var(--navy);font-weight:900}
 .urgent{display:block;margin:10px 0 0;padding:10px 14px;border-radius:12px;background:#FFF1E4;color:#A34A00;font-size:15px;text-decoration:none;font-weight:700}
 .urgent span{color:var(--orange)}
@@ -97,10 +97,13 @@ h1 em{font-style:normal;color:var(--orange)}
     <div class="top"><b>小林師傅｜<span class="area"></span>冷氣</b><span>@xiaolin.aircon</span></div>
     <a class="urgent lineLink" href="#">冷氣現在就壞了？<span>直接 LINE 小林 →</span></a>
     <h1>你家冷氣<br><em>還好嗎</em></h1>
-    <p class="lead">小林出的 7 題，大概兩分鐘<br>不用留電話，填完就看到結果</p>
+    <p class="lead">想直接約的，點 4 下看參考價<br>還不確定要不要洗的，先做 7 題健檢</p>
     <img class="hero" src="img/p1-濾網對燈.png" alt="北極熊小林拿著濾網對著燈看">
-    <button class="btn" id="start">開始檢查</button>
-    <p class="note">結果只會出現在你的手機上，不會傳給任何人</p>
+    <button class="btn" id="startQ">看價格・約時間</button>
+    <p class="note" style="margin:6px 0 14px">4 題　直接看參考價</p>
+    <button class="btn ghost" id="start">先健檢 要不要洗</button>
+    <p class="note" style="margin-top:6px">7 題　大概兩分鐘</p>
+    <p class="note">不用留電話，結果只會出現在你的手機上</p>
   </section>
 
   <!-- 題目 -->
@@ -123,7 +126,7 @@ h1 em{font-style:normal;color:var(--orange)}
 
 <script>
 const $ = s => document.querySelector(s);
-const Q = [
+const CHECK_Q = [
   {k:'type', t:'你家冷氣是哪一種', h:'有好幾台就選最常用的那台', o:[
     ['wall','壁掛式','掛在牆上的長條形','最常見的 我閉著眼都會拆'],
     ['window','窗型','嵌在窗戶上的一整台','老派 但很耐用'],
@@ -160,6 +163,30 @@ const Q = [
     ['t24','24 到 25 度','','差一兩度 電費差不少'],
     ['t23','23 度以下','','你家是冰箱嗎']]},
 ];
+// ===== 看價格（4 題） =====
+const QUOTE_Q = [
+  {k:'type', t:'要洗哪一種冷氣', h:'不確定就選分離式，掛在牆上、外面有室外機的那種', o:[
+    ['split','分離式（壁掛）','掛在牆上，外面有一台室外機','最常見的這種'],
+    ['window','窗型','嵌在窗戶上的一整台','老派 但很耐用'],
+    ['duct','吊隱式','藏在天花板裡，只看到出風口','藏起來的也要洗'],
+    ['unknown','不知道','','沒關係 傳照片給師傅看就知道']]},
+  {k:'n', t:'幾台', h:'3 台以上每台折 300', o:[
+    ['1','1 台','','好'],
+    ['2','2 台','','好'],
+    ['3','3 台以上','','3 台以上每台折 300']]},
+  {k:'area', t:'在哪一區', h:'', o:[
+    ['ty','桃園市','中壢 平鎮 楊梅 桃園 八德 龜山 都有跑','桃園是主場'],
+    ['hc','新竹','','有跑'],
+    ['sc','三重','','有跑'],
+    ['other','其他地區','','先 LINE 問 看時間跟距離能不能排']]},
+  {k:'need', t:'主要想處理什麼', h:'', o:[
+    ['clean','定期保養 洗一洗','','有在顧 很好'],
+    ['smell','有霉味、酸味','','味道多半在裡面'],
+    ['drip','會滴水','','先看排水 洗的時候一起通'],
+    ['weak','不冷 冷很慢','','洗完還不冷 要再看冷媒'],
+    ['install','想換新 或裝新的','','裝冷氣也有做']]},
+];
+let Q = CHECK_Q, MODE = 'check';
 const A = {}; let i = 0;
 const label = (k, v) => (Q.find(q => q.k === k).o.find(o => o[0] === v) || [, ''])[1];
 
@@ -200,9 +227,16 @@ $('#opts').addEventListener('click', e => {
 let lastSay = '';
 function say(t) { lastSay = t; }
 function sayKeep() { if (!lastSay) return; $('#sayt').textContent = lastSay; $('#say').classList.remove('hide'); }
-$('#next').onclick = () => { lastSay = ''; if (i < Q.length - 1) { i++; show(); } else result(); };
+$('#next').onclick = () => { lastSay = ''; if (i < Q.length - 1) { i++; show(); } else if (MODE === 'quote') quoteResult(); else result(); };
 $('#back').onclick = () => { lastSay = ''; if (i) { i--; show(); } };
-$('#start').onclick = () => { $('#home').classList.add('hide'); $('#quiz').classList.remove('hide'); show(); track('start'); };
+function begin(mode) {
+  MODE = mode; Q = mode === 'quote' ? QUOTE_Q : CHECK_Q;
+  for (const k in A) delete A[k]; i = 0;
+  $('#home').classList.add('hide'); $('#result').classList.add('hide'); $('#quiz').classList.remove('hide');
+  show(); track(mode === 'quote' ? 'quote_start' : 'start');
+}
+$('#start').onclick = () => begin('check');
+$('#startQ').onclick = () => begin('quote');
 
 // ===== 判斷 =====
 const SYM = {
@@ -268,21 +302,87 @@ function result() {
 
   $('#quiz').classList.add('hide');
   const r = $('#result'); r.innerHTML = h; r.classList.remove('hide'); window.scrollTo(0, 0);
-  $('#redo').onclick = () => { for (const k in A) delete A[k]; i = 0; r.classList.add('hide'); $('#quiz').classList.remove('hide'); show(); };
+  $('#redo').onclick = () => begin('check');
   $('#toLine').href = lineHref(sheet);
   $('#toLine').onclick = () => { if (!CONFIG.LINE_OA) copy(sheet, false); track('line', {level: lv}); };
   $('#copy').onclick = () => copy(sheet, true);
   track('result', {level: lv});
 }
+
+// ===== 看價格的結果 =====
+const PRICE = {split:[3000,4000], window:[3000,4000], duct:[3000,5000]};
+function priceRange() {
+  const m = new Date().getMonth() + 1, off = m >= 10 || m <= 2;
+  const t = A.type === 'unknown' ? 'split' : A.type;
+  let r = (t === 'split' && off) ? [2500,3500] : PRICE[t];
+  const n = A.n === '3' ? 3 : Number(A.n);
+  const per = n >= 3 ? [r[0] - 300, r[1] - 300] : r;
+  return {t, off: t === 'split' && off, per, n, total: [per[0] * n, per[1] * n]};
+}
+const fmt = x => x.toLocaleString('en-US');
+function quoteResult() {
+  const d = new Date();
+  CODE = `XQ${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}-${Math.floor(100 + Math.random() * 900)}`;
+  const inst = A.need === 'install', away = A.area === 'other', P = priceRange();
+  let h = `<div class="top"><b>小林的參考價</b><button class="back" id="redo">重新選</button></div>`;
+  if (inst) {
+    h += `<div class="verdict"><span class="lv">裝冷氣</span><h2>標準安裝<br>4,500 起</h2><p>舊機免費幫你載走，實際看管線長度跟室外機放哪</p><img src="img/p6-扛室外機.png" alt=""></div>`;
+  } else {
+    const each = `${fmt(P.per[0])}–${fmt(P.per[1])}`;
+    h += `<div class="verdict"><span class="lv">${label('type', A.type)}${A.type === 'unknown' ? '（先用分離式算）' : ''}</span>
+      <h2>${P.n >= 3 ? '3 台起 每台<br>' : P.n === 2 ? '2 台大概<br>' : '1 台大概<br>'}${P.n === 2 ? `${fmt(P.total[0])}–${fmt(P.total[1])}` : each}</h2>
+      <p>${P.off ? '10 月到 2 月淡季價　' : ''}不收訂金 洗完再付</p><img src="img/p3-比讚.png" alt=""></div>`;
+  }
+  h += `<div class="sec"><h3>這個價格</h3><div class="card">`;
+  if (inst) {
+    h += `<div class="tip"><b>包含</b>　標準安裝，舊機免費載走</div><div class="tip"><b>另外算</b>　管線比較長、室外機要吊掛或放高處，看現場再說</div>`;
+  } else {
+    h += `<div class="tip"><b>包含</b>　${P.t === 'split' ? '分離式含室外機一起洗' : P.t === 'window' ? '窗型整台拆洗' : '吊隱式拆洗，要看天花板維修孔'}</div>`;
+    if (P.n >= 3) h += `<div class="tip"><b>多台</b>　3 台以上每台折 300，上面已經算進去了</div>`;
+    h += `<div class="tip"><b>會加價的</b>　螺絲鏽死拆不開、沒洗成，收 500</div>`;
+    if (A.need === 'weak') h += `<div class="tip"><b>不冷的</b>　洗完還是不冷，可能是冷媒，要接錶量過才知道，那部分另外算</div>`;
+    if (A.need === 'drip') h += `<div class="tip"><b>滴水的</b>　洗的時候接水盤跟排水管一起通</div>`;
+  }
+  h += `<div class="tip"><b>實際價格</b>　看現場或照片再確認，這裡是參考</div></div></div>`;
+  if (away) h += `<div class="sec"><div class="card"><div class="tip">這一區要先 LINE 問一下，看時間跟距離能不能排</div></div></div>`;
+  h += `<div class="sec"><h3>可以順便傳張照片</h3><div class="card"><div class="tip">開 LINE 之後，拍室內機正面一張、室外機一張，師傅看了更準。不拍也可以，先問時間</div></div></div>`;
+  const sheet = quoteSheet(inst, P);
+  h += `<div class="cta"><h3>帶資料到 LINE 問時段</h3><p>${CONFIG.LINE_OA ? '按下去會打開 LINE，你選的都幫你填好了，直接送出就好' : '先加小林 LINE，再把下面這份整理單貼過去'}</p>
+    ${CONFIG.LINE_OA ? '' : `<div class="sheet">${sheet}</div>`}
+    <a class="btn" id="toLine" href="#">${CONFIG.LINE_OA ? '用 LINE 問時段' : '加小林 LINE'}</a>
+    <div style="height:10px"></div><button class="btn ghost" id="copy">複製整理單</button>
+    <p class="code">你的代碼：${CODE}</p></div>
+    <div class="sec"><button class="btn ghost" id="toCheck">還不確定要不要洗？先做 7 題健檢</button></div>
+    <p class="note" style="margin-top:14px">服務範圍：${CONFIG.AREA}　不比廠牌</p>`;
+  $('#quiz').classList.add('hide');
+  const r = $('#result'); r.innerHTML = h; r.classList.remove('hide'); window.scrollTo(0, 0);
+  $('#redo').onclick = () => begin('quote');
+  $('#toCheck').onclick = () => begin('check');
+  $('#toLine').href = lineHref(sheet);
+  $('#toLine').onclick = () => { if (!CONFIG.LINE_OA) copy(sheet, false); track('quote_line', {type: A.type, n: A.n, area: A.area, need: A.need}); };
+  $('#copy').onclick = () => copy(sheet, true);
+  track('quote_result', {type: A.type, n: A.n, area: A.area, need: A.need});
+}
+function srcLine() {
+  const p = new URLSearchParams(location.search), s = p.get('utm_source'), c = p.get('utm_content');
+  return s ? `（從 ${s}${c ? ' ' + c : ''} 來的）` : '';
+}
+function quoteSheet(inst, P) {
+  return [`小林你好 我想${inst ? '問裝冷氣' : '約洗冷氣'}`, `代碼 ${CODE}`,
+    `機型：${label('type', A.type)}；台數：${label('n', A.n)}`,
+    `地區：${label('area', A.area)}`,
+    `想處理：${label('need', A.need)}`,
+    inst ? '參考價：標準安裝 4,500 起' : `參考價：每台 ${fmt(P.per[0])}–${fmt(P.per[1])}${P.off ? '（淡季）' : ''}`,
+    `方便的時段：`, srcLine()].filter(Boolean).join('\n');
+}
 function sheetText(lv) {
   const s = (A.sym || []).filter(x => x !== 'none').map(k => SYM[k].t);
-  const src = new URLSearchParams(location.search).get('utm_source');
   return [`小林你好 我做了冷氣檢查`, `代碼 ${CODE}`,
     `冷氣：${label('type', A.type)}，用了${label('age', A.age)}`,
     `濾網：${label('filter', A.filter)}；拆洗：${label('pro', A.pro)}`,
     `狀況：${s.length ? s.join('、') : '都沒有'}`,
     `室外機：${label('out', A.out)}；溫度：${label('temp', A.temp)}`,
-    `結果：${LV[lv].tag}`, src ? `（從 ${src} 來的）` : ''].filter(Boolean).join('\n');
+    `結果：${LV[lv].tag}`, srcLine()].filter(Boolean).join('\n');
 }
 function lineHref(text) {
   return CONFIG.LINE_OA ? `https://line.me/R/oaMessage/${encodeURIComponent(CONFIG.LINE_OA)}/?${encodeURIComponent(text)}`
@@ -298,6 +398,7 @@ function copy(t, toast) {
 document.querySelectorAll('.area').forEach(e => e.textContent = CONFIG.AREA);
 document.querySelectorAll('.lineLink').forEach(a => { a.href = lineHref('小林你好 我家冷氣壞了'); a.target = '_blank'; a.onclick = () => track('urgent'); });
 function track(ev, p) { if (window.gtag) gtag('event', 'xl_' + ev, p || {}); }
+{ const m = new URLSearchParams(location.search).get('mode'); if (m === 'quote' || m === 'check') begin(m); }
 if (CONFIG.GA_ID) {
   const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.GA_ID; document.head.appendChild(s);
   window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); }; gtag('js', new Date()); gtag('config', CONFIG.GA_ID);
